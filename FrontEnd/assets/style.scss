@@ -1,0 +1,261 @@
+/********************************/
+/*ajout class pour les filtres*/
+#filters {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  gap: 15px;
+  margin: 20px;
+}
+button {
+  font-family: "Syne";
+  font-size: 16px;
+  color: #1d6154;
+  border: #1d6154 solid;
+  border-radius: 60px;
+  padding: 15px;
+  background-color: #ffffff;
+}
+button:hover {
+  color: #ffffff;
+  background-color: #1d6154;
+  cursor: pointer;
+}
+
+/**************/
+/* page login */
+#login {
+  color: inherit;
+  text-decoration: none;
+}
+.page-background {
+  background-color: rgb(255, 255, 241);
+}
+.submit {
+  cursor: pointer;
+}
+.p-underline {
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+/*_________________*/
+.inactive {
+  display: none;
+}
+.my-projects {
+  display: flex;
+  justify-content: center;
+  align-items: baseline;
+  gap: 20px;
+}
+.direction-column {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+/*_________________*/
+/*************************/
+/* mode edition */
+.edition {
+  background-color: black;
+  color: white;
+
+  height: 59px;
+  line-height: 59px;
+  display: none;
+  justify-content: center;
+  align-items: baseline;
+  gap: 20px;
+  flex-direction: row;
+  i {
+    color: #ffffff;
+    line-height: 59px;
+  }
+}
+.modifier {
+  flex-direction: row;
+
+  i {
+    line-height: 59px;
+  }
+  .button-modifier {
+    border: none;
+    color: black;
+    font-weight: 400;
+    font-family: "Work Sans";
+    padding: 0;
+    &:hover {
+      background-color: transparent;
+    }
+  }
+}
+
+/***********/
+/* modale */
+
+.modal-container {
+  width: 100%;
+  height: 100%;
+
+  position: fixed;
+  top: 0;
+  left: 1px;
+  z-index: 1;
+  background-color: rgba(0, 0, 0, 0.3);
+}
+dialog {
+  background-color: #ffffff;
+  border-radius: 10px;
+  border: none;
+  width: 630px;
+  height: 688px;
+  color: black;
+
+  position: relative;
+  z-index: 2;
+  top: 30px;
+  bottom: 40px;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  gap: 20px;
+  padding-bottom: 40px;
+
+  #cross-mark {
+    cursor: pointer;
+    position: relative;
+    left: 300px;
+    top: 5px;
+  }
+  #arrow-left {
+    cursor: pointer;
+    position: relative;
+    right: 300px;
+    top: 5px;
+  }
+  h3 {
+    font-family: Work Sans;
+    font-size: 26px;
+    font-weight: 400;
+    line-height: 30px;
+    letter-spacing: 0em;
+    text-align: center;
+    padding: 15px;
+  }
+
+  .mini-picture {
+    width: 100%;
+    img {
+      width: 100%;
+    }
+  }
+  .mini-gallery {
+    width: 80%;
+    padding: 10px 0;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+    grid-column-gap: 10px;
+    grid-row-gap: 20px;
+  }
+  .modal-border {
+    border: 1px solid rgba(179, 179, 179, 1);
+    min-width: 80%;
+  }
+  .button-addphoto {
+    background-color: #1d6154;
+    color: #ffffff;
+    &:hover {
+      background: rgba(167, 167, 167, 1);
+      border: none;
+    }
+  }
+  .fa-trash-can {
+    position: relative;
+    width: 17px;
+    height: 17px;
+    bottom: 120px;
+    left: 70px;
+    cursor: pointer;
+    color: #ffffff;
+    background-color: black;
+
+    font-size: 11px;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+}
+
+.modale2 {
+  form {
+    margin: 30px;
+    input,
+    select {
+      height: 51px;
+      width: 420px;
+      box-shadow: 0px 4px 14px 0px rgba(0, 0, 0, 0.09);
+      border: transparent;
+      cursor: pointer;
+    }
+  }
+}
+
+.space-btw {
+  display: flex;
+  justify-content: space-between;
+}
+
+.newphoto-container {
+  margin-top: 30px;
+  width: 420px;
+  height: 169px;
+
+  border-radius: 3px;
+  background-color: rgba(232, 241, 246, 1);
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+
+  i {
+    font-size: 76px;
+    color: rgba(185, 197, 204, 1);
+  }
+  label {
+    color: rgba(48, 102, 133, 1);
+    background-color: rgba(185, 197, 204, 1);
+    border: none;
+    width: 173px;
+    height: 36px;
+
+    line-height: 36px;
+    text-align: center;
+    border-radius: 50px;
+    cursor: pointer;
+  }
+  img {
+    height: 100%;
+  }
+}
+
+#input-file {
+  display: none;
+}
+.select-style {
+  background-color: #ffffff;
+}
+.btn-valider {
+  background-color: rgba(167, 167, 167, 1);
+  color: #ffffff;
+  border: none;
+  width: 237px;
+  &:hover {
+    background-color: #1d6154;
+  }
+}
