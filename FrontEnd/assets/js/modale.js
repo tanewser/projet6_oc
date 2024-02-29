@@ -6,16 +6,15 @@ modalContainer.addEventListener("click", closeModal);
 modale1.addEventListener("click", stopPropagation);
 modale2.addEventListener("click", stopPropagation);
 
-function stopPropagation(e) {
-  e.stopPropagation();
-}
-function closeModal() {
-  modalContainer.classList.add("inactive");
-  modale2.classList.add("inactive");
-  modale1.classList.remove("inactive");
+/////////
+/////////
+
+// Page login (connectée) : récupération du token
+function isConnected() {
+  return sessionStorage.getItem("token") !== null;
 }
 
-//affichage
+//affichage de la modale
 function displayModale() {
   if (isConnected()) {
     const modifyButton = document.querySelector(".modifier");
@@ -23,15 +22,11 @@ function displayModale() {
     modifyButton.addEventListener("click", () => {
       modalContainer.classList.remove("inactive");
     });
-
-    const crossMark = document.getElementById("cross-mark");
-    crossMark.addEventListener("click", () => {
-      modalContainer.classList.add("inactive");
-    });
   }
 }
 displayModale();
 
+/* gallerie des images dans la modale*/
 function galleryModal() {
   if (isConnected()) {
     displayGalleryModal();
@@ -61,7 +56,66 @@ async function displayGalleryModal() {
     deleteIcon.addEventListener("click", deleteImg);
   }
 }
-//Suppression des images
+
+//Fermeture de la modale
+function stopPropagation(e) {
+  e.stopPropagation();
+}
+/* */
+const crossMarks = document.querySelectorAll(".cross-mark");
+for (let i = 0; i < crossMarks.length; i++) {
+  crossMarks[i].addEventListener("click", closeModal);
+}
+/* */
+function closeModal() {
+  modalContainer.classList.add("inactive");
+  modale2.classList.add("inactive"); //return 1st modal
+  modale1.classList.remove("inactive");
+
+  resetForm();
+}
+
+//initialiser le formulaire
+function resetForm() {
+  const emptyInputImage = document.querySelector(".empty-input-image");
+  emptyInputImage.classList.remove("inactive");
+
+  const formNewWork = document.querySelector(".form-new-work");
+  formNewWork.reset();
+
+  const previewImage = document.querySelector(".preview-image");
+  if (previewImage) {
+    previewImage.remove();
+  }
+
+  const imgInput = document.querySelector(".input-file");
+  imgInput.value = "";
+  workAdded.innerHTML = "";
+  inputTitle.style.borderStyle = "none";
+}
+
+//réafficher modale 1 apres avoir été sur la modale 2
+const arrowLeft = document.getElementById("arrow-left");
+arrowLeft.addEventListener("click", returnModale1);
+async function returnModale1() {
+  modale1.classList.remove("inactive");
+  modale2.classList.add("inactive");
+  resetForm();
+}
+//afficher la modale 2 pour poster new photos
+const buttonAddPhoto = document.querySelector(".button-addphoto");
+buttonAddPhoto.addEventListener("click", afficheModale2);
+
+async function afficheModale2() {
+  modale1.classList.add("inactive");
+  modale2.classList.remove("inactive");
+}
+
+//////
+
+//////
+
+//////******** SUPPRESSION DES IMAGES ***********/
 async function deleteImg(e) {
   const token = sessionStorage.getItem("token");
   const workId = e.target.dataset.workId;
@@ -72,24 +126,10 @@ async function deleteImg(e) {
   displayGallery();
   displayGalleryModal();
 }
-
-//affiche modale 1 apres avoir été sur la modale 2
-const arrowLeft = document.getElementById("arrow-left");
-arrowLeft.addEventListener("click", returnModale1);
-async function returnModale1() {
-  modale1.classList.remove("inactive");
-  modale2.classList.add("inactive");
-}
-//affiche la modale 2 pour poster new photos
-const buttonAddPhoto = document.querySelector(".button-addphoto");
-buttonAddPhoto.addEventListener("click", afficheModale2);
-
-async function afficheModale2() {
-  modale1.classList.add("inactive");
-  modale2.classList.remove("inactive");
-}
 //////
-/////
+
+//////
+
 //////******** AJOUT DE NOUVELLES PHOTOS DANS LA MODALE ***********/
 
 const imgInput = document.querySelector(".input-file");
@@ -97,10 +137,18 @@ const formNewWork = document.querySelector(".form-new-work");
 const inputTitle = document.getElementById("titre");
 const selectCategory = document.getElementById("categorie");
 const miniPictureContainer = document.createElement("div");
+const workAdded = document.createElement("span");
+const btnValider = document.querySelector(".btn-valider");
+modale2.appendChild(workAdded);
+//
+
+formNewWork.addEventListener("submit", postnewWorks);
+
 //
 
 async function postnewWorks(e) {
   e.preventDefault();
+
   const token = sessionStorage.getItem("token");
   const Image = imgInput.files[0];
   const formData = new FormData();
@@ -114,32 +162,57 @@ async function postnewWorks(e) {
     headers: {
       Authorization: `Bearer ${token}`,
       accept: "application/json",
-      "Content-Type": "multipart/form-data",
     },
   });
-  if (res.ok) {
+  if (res.ok == true) {
     console.log("Le travail a bien été ajouté");
+    workAdded.textContent = "Votre travail a bien été ajouté";
+    workAdded.style.color = "green";
+    workAdded.style.textDecoration = "underline";
+
+    inputTitle.style.borderStyle = "none";
+
+    displayGallery();
+    displayGalleryModal();
   } else {
-    console.error("Erreur lors de l'ajout du nouveau travail");
     console.log(res);
+    checkedForm();
   }
 }
 
+//
+// Affichage de la nouvelle photo dans le champs input-file
 imgInput.addEventListener("change", function (e) {
   const newPhotoContainer = document.querySelector(".newphoto-container");
+  const emptyInputImage = document.querySelector(".empty-input-image");
+  emptyInputImage.classList.add("inactive");
   const Image = imgInput.files[0];
-  newPhotoContainer.innerHTML = `<img src="${URL.createObjectURL(Image)}"/>`;
+  newPhotoContainer.innerHTML += `<img src="${URL.createObjectURL(
+    Image
+  )}" class="preview-image"/>`;
 });
 
-formNewWork.addEventListener("submit", postnewWorks);
+//
+// Ajout des catégories dans le champs catégorie
 addCategoryOptions();
 async function addCategoryOptions() {
   const categories = await getCategories();
-  console.log(categories);
+
   for (const category of categories) {
     const option = document.createElement("option");
     option.value = category.id;
     option.textContent = category.name;
     selectCategory.appendChild(option);
+  }
+  displayGalleryModal();
+  displayGallery();
+}
+
+//
+// Vérification champs du formulaire : form fields
+function checkedForm() {
+  if (imgInput.value == "") {
+    workAdded.textContent = "Erreur :  il n'y a pas d'image ";
+    workAdded.style.color = "red";
   }
 }

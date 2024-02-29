@@ -1,10 +1,18 @@
 /******************* AUTHENTIFICATION DE L'UTILISATEUR *********************/
 // SI CONN BON : retour page d'accueil ----- SI CONN X : msg d'erreur
 
+////////
+
+///////
+
+///////
+
+//Récupération des champs du formulaire (page login)
 const inputEmail = document.getElementById("email");
 const inputPassword = document.getElementById("password");
 const loginForm = document.querySelector(".login-form");
 
+//Ajout d'un événement pour se Connecter
 loginForm.addEventListener("submit", userConnected);
 
 async function userConnected(e) {
@@ -16,12 +24,18 @@ async function userConnected(e) {
   const result = await loginUser(loginInfo);
 
   if (result) {
-    sessionStorage.setItem("token", result);
+    sessionStorage.setItem("token", result); // connection validée
     window.location = "./index.html";
   } else {
-    const msgContainer = document.createElement("span"); //création msg d'erreur
-    msgContainer.innerHTML = "Erreur dans l’identifiant ou le mot de passe";
-    msgContainer.style.color = "red";
-    loginForm.append(msgContainer);
+    const msgError = document.createElement("span"); // connection invalidée : création d'un message d'erreur
+    msgError.innerHTML = "Erreur dans l’identifiant ou le mot de passe";
+    msgError.style.color = "red";
+    msgError.style.textAlign = "center";
+    msgError.classList.add("error-identifiant");
+    loginForm.append(msgError);
   }
 }
+
+///////
+
+//////

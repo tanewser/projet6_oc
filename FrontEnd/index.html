@@ -104,32 +104,35 @@
     <div class="modal-container inactive">
       <!--1ere partie modale-->
       <dialog class="modale1">
-        <i class="fa-solid fa-xmark" id="cross-mark"></i>
-        <h3>Ajout photo</h3>
+        <i class="fa-solid fa-xmark cross-mark"></i>
+        <h3>Gallerie photo</h3>
         <div class="mini-gallery"></div>
         <div class="modal-border"></div>
         <button class="button-addphoto">Ajouter une photo</button>
       </dialog>
       <dialog class="modale2 inactive">
         <div class="space-btw">
-          <i class="fa-solid fa-xmark" id="cross-mark"></i>
+          <i class="fa-solid fa-xmark cross-mark"></i>
           <i class="fa-solid fa-arrow-left" id="arrow-left"></i>
         </div>
+        <h3>Ajout photo</h3>
         <div class="newphoto-container">
-          <i class="fa-regular fa-image"></i>
-          <label for="input-file">+ Ajouter photo</label>
-          <span>jpg, png : 4mo max</span>
+          <div class="empty-input-image">
+            <i class="fa-regular fa-image"></i>
+            <label for="input-file">+ Ajouter photo</label>
+            <span>jpg, png : 4mo max</span>
+          </div>
         </div>
         <form action="" method="post" class="direction-column form-new-work">
           <input type="file" id="input-file" class="input-file" />
           <label for="titre">Titre</label>
-          <input type="text" name="titre" id="titre" />
+          <input type="text" name="titre" id="titre" class="titre" required />
 
           <label for="categorie">Categorie</label>
           <select name="categorie" id="categorie" class="select-style"></select>
+          <div class="modal-border"></div>
           <input type="submit" class="btn-valider" value="Valider" />
         </form>
-        <div class="modal-border"></div>
       </dialog>
     </div>
   </body>

@@ -32,7 +32,7 @@ button:hover {
 .page-background {
   background-color: rgb(255, 255, 241);
 }
-.submit {
+.login-form .submit {
   cursor: pointer;
 }
 .p-underline {
@@ -41,9 +41,7 @@ button:hover {
 }
 
 /*_________________*/
-.inactive {
-  display: none;
-}
+
 .my-projects {
   display: flex;
   justify-content: center;
@@ -125,12 +123,6 @@ dialog {
   gap: 20px;
   padding-bottom: 40px;
 
-  #cross-mark {
-    cursor: pointer;
-    position: relative;
-    left: 300px;
-    top: 5px;
-  }
   #arrow-left {
     cursor: pointer;
     position: relative;
@@ -155,7 +147,7 @@ dialog {
   }
   .mini-gallery {
     width: 80%;
-    padding: 10px 0;
+    height: 100%;
     display: grid;
     grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
     grid-column-gap: 10px;
@@ -170,7 +162,7 @@ dialog {
     color: #ffffff;
     &:hover {
       background: rgba(167, 167, 167, 1);
-      border: none;
+      border: solid rgba(167, 167, 167, 1);
     }
   }
   .fa-trash-can {
@@ -190,34 +182,63 @@ dialog {
     align-items: center;
   }
 }
+.cross-mark {
+  cursor: pointer;
+  position: relative;
+  left: 300px;
+  top: 5px;
+}
 
 .modale2 {
-  form {
-    margin: 30px;
-    input,
-    select {
-      height: 51px;
-      width: 420px;
-      box-shadow: 0px 4px 14px 0px rgba(0, 0, 0, 0.09);
-      border: transparent;
-      cursor: pointer;
+  .input-file,
+  .select-style,
+  #titre {
+    height: 51px;
+    box-shadow: 0px 4px 14px 0px rgba(0, 0, 0, 0.09);
+    border: none;
+    cursor: pointer;
+  }
+
+  .btn-valider {
+    background-color: rgba(167, 167, 167, 1);
+    color: #ffffff;
+    border: none;
+    width: 237px;
+    font-size: 16px;
+    padding: 15px;
+    cursor: pointer;
+
+    position: relative;
+    left: 130px;
+    top: 10px;
+    margin: 0;
+    &:hover {
+      background-color: #1d6154;
     }
   }
+}
+.input-file {
+  display: none;
+}
+
+.select-style {
+  background-color: #ffffff;
+  margin-bottom: 50px;
 }
 
 .space-btw {
   display: flex;
   justify-content: space-between;
 }
-
 .newphoto-container {
-  margin-top: 30px;
-  width: 420px;
-  height: 169px;
-
+  width: 504px;
+  height: 200px;
   border-radius: 3px;
   background-color: rgba(232, 241, 246, 1);
-
+  display: flex;
+  justify-content: center;
+}
+.empty-input-image {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -226,6 +247,7 @@ dialog {
   i {
     font-size: 76px;
     color: rgba(185, 197, 204, 1);
+    margin-top: 15px;
   }
   label {
     color: rgba(48, 102, 133, 1);
@@ -239,23 +261,16 @@ dialog {
     border-radius: 50px;
     cursor: pointer;
   }
-  img {
-    height: 100%;
-  }
+}
+.form-new-work {
+  width: 80%;
 }
 
-#input-file {
+.error-identifiant {
+  border: solid 2px red;
+  padding: 10px;
+  margin: 10px;
+}
+.inactive {
   display: none;
-}
-.select-style {
-  background-color: #ffffff;
-}
-.btn-valider {
-  background-color: rgba(167, 167, 167, 1);
-  color: #ffffff;
-  border: none;
-  width: 237px;
-  &:hover {
-    background-color: #1d6154;
-  }
 }

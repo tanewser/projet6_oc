@@ -6,8 +6,18 @@ let filterContainer = document.getElementById("filters");
 
 //////
 
-//////////////*  filtrer les éléments par images (boutons) */ /////////////
+//////////////*  FILTRER LES ELEMENTS PAR IMAGES (boutons-filtre) *//////////////
 
+//création des boutons de filtres avec leurs noms associés
+function makeFilter(category) {
+  const filterButton = document.createElement("button");
+  filterButton.dataset.categoryId = category.id;
+  filterButton.textContent = category.name;
+  filterButton.addEventListener("click", showFilteredImg);
+  filterContainer.append(filterButton);
+}
+
+//affichage des boutons de filtre
 async function displayCategories() {
   const categories = await getCategories();
   makeFilter({ id: null, name: "Tous" });
@@ -18,16 +28,9 @@ async function displayCategories() {
 }
 displayCategories();
 
-function makeFilter(category) {
-  const filterButton = document.createElement("button");
-  filterButton.dataset.categoryId = category.id;
-  filterButton.textContent = category.name;
-  filterButton.addEventListener("click", showFilteredImg);
-  filterContainer.append(filterButton);
-}
-
+//Filtrer les images par catégorie
 async function showFilteredImg(e) {
-  gallery.innerHTML = ""; // delete all works
+  gallery.innerHTML = ""; // suppression tous les travaux (works)
   const works = await getWorks();
 
   for (const work of works) {
@@ -40,10 +43,15 @@ async function showFilteredImg(e) {
   }
 }
 
-//////
+///////******************* AFFICHAGE DE LA GALLERIE D'IMAGE (homepage) ****************////////
 
-/******************* AFFICHAGE DE LA GALLERIE *********************/
-
+//assigner pour chaque image son contenu html
+function displayWork(work) {
+  gallery.innerHTML += `<figure>
+  <img src=${work.imageUrl}>
+  <figcaption>${work.title}</figcaption></figure>`;
+}
+//fonctionnement des images html
 async function displayGallery() {
   const works = await getWorks();
   gallery.innerHTML = "";
@@ -51,43 +59,37 @@ async function displayGallery() {
     displayWork(work);
   }
 }
-
-function displayWork(work) {
-  gallery.innerHTML += `<figure>
-  <img src=${work.imageUrl}>
-  <figcaption>${work.title}</figcaption></figure>`;
-}
-
-displayGallery(); // appel de la fonction pour afficher la gallerie
+// appel de la fonction pour afficher la gallerie (homepage)
+displayGallery();
 
 //////
 
 //////
 
 //////******************* PAGE LOGIN/LOGOUT *********************/
+// Récupération du token
 function isConnected() {
   return sessionStorage.getItem("token") !== null;
 }
+
+// Style page connectée : mode edition + boutons des filtres effacés + logout
 async function pageConnected() {
-  //mode edition + boutons des filtres effacés
   if (isConnected()) {
     const editionContainer = document.querySelector(".edition");
+    const login = document.getElementById("login");
+
     editionContainer.style.display = "flex";
     filterContainer.style.display = "none";
-    const login = document.getElementById("login");
     login.innerText = "logout";
-
     login.addEventListener("click", logout);
   }
 }
 pageConnected();
 
+// Déconnexion
 function logout(e) {
-  //deconnexion
   e.preventDefault();
   sessionStorage.removeItem("token");
   location.reload();
 }
-///////
-
-//////
+////////////////////////////////////////////////////

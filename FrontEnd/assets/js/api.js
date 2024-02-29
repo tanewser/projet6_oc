@@ -1,4 +1,4 @@
-//Appel des api
+//Appel des apis
 
 async function getCategories() {
   const response = await fetch("http://localhost:5678/api/categories");
