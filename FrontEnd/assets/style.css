@@ -17,9 +17,10 @@ button {
   border-radius: 60px;
   padding: 15px;
   background-color: #ffffff;
+  cursor: pointer;
 }
 
-button:hover {
+.button-filter {
   color: #ffffff;
   background-color: #1d6154;
   cursor: pointer;
@@ -80,6 +81,7 @@ button:hover {
 
 .modifier {
   flex-direction: row;
+  cursor: pointer;
 }
 .modifier i {
   line-height: 59px;
@@ -90,6 +92,7 @@ button:hover {
   font-weight: 400;
   font-family: "Work Sans";
   padding: 0;
+  cursor: pointer;
 }
 .modifier .button-modifier:hover {
   background-color: transparent;
@@ -140,14 +143,13 @@ dialog h3 {
   padding: 15px;
 }
 dialog .mini-picture {
-  width: 100%;
-}
-dialog .mini-picture img {
-  width: 100%;
+  width: 90px;
+  height: 130px;
+  -o-object-fit: cover;
+     object-fit: cover;
 }
 dialog .mini-gallery {
   width: 80%;
-  height: 100%;
   display: grid;
   grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
   grid-column-gap: 10px;
@@ -169,11 +171,12 @@ dialog .fa-trash-can {
   position: relative;
   width: 17px;
   height: 17px;
-  bottom: 120px;
-  left: 70px;
+  bottom: 125px;
+  left: 65px;
   cursor: pointer;
   color: #ffffff;
   background-color: black;
+  border-radius: 3px;
   font-size: 11px;
   display: flex;
   justify-content: center;
@@ -207,9 +210,6 @@ dialog .fa-trash-can {
   left: 130px;
   top: 10px;
   margin: 0;
-}
-.modale2 .btn-valider:hover {
-  background-color: #1d6154;
 }
 
 .input-file {
@@ -270,4 +270,17 @@ dialog .fa-trash-can {
 
 .inactive {
   display: none;
+}
+
+.preview-image {
+  width: 30%;
+  height: 100%;
+  -o-object-fit: cover;
+     object-fit: cover;
+}
+
+.button-green {
+  color: #ffffff;
+  background-color: #1d6154;
+  cursor: pointer;
 }/*# sourceMappingURL=style.css.map */

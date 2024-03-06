@@ -14,6 +14,7 @@ async function getWorks() {
 
 async function loginUser(loginInfo) {
   const res = await fetch("http://localhost:5678/api/users/login", {
+    /* Objet de configuration */
     method: "POST",
     body: loginInfo,
     headers: { "Content-Type": "application/json", accept: "*/*" },

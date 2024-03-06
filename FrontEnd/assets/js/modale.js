@@ -9,11 +9,6 @@ modale2.addEventListener("click", stopPropagation);
 /////////
 /////////
 
-// Page login (connectée) : récupération du token
-function isConnected() {
-  return sessionStorage.getItem("token") !== null;
-}
-
 //affichage de la modale
 function displayModale() {
   if (isConnected()) {
@@ -91,12 +86,12 @@ function resetForm() {
   const imgInput = document.querySelector(".input-file");
   imgInput.value = "";
   workAdded.innerHTML = "";
-  inputTitle.style.borderStyle = "none";
 }
 
 //réafficher modale 1 apres avoir été sur la modale 2
 const arrowLeft = document.getElementById("arrow-left");
 arrowLeft.addEventListener("click", returnModale1);
+
 async function returnModale1() {
   modale1.classList.remove("inactive");
   modale2.classList.add("inactive");
@@ -139,10 +134,11 @@ const selectCategory = document.getElementById("categorie");
 const miniPictureContainer = document.createElement("div");
 const workAdded = document.createElement("span");
 const btnValider = document.querySelector(".btn-valider");
+btnValider.disabled = true;
 modale2.appendChild(workAdded);
 //
 
-formNewWork.addEventListener("submit", postnewWorks);
+formNewWork.addEventListener("change", postnewWorks);
 
 //
 
@@ -157,6 +153,7 @@ async function postnewWorks(e) {
   formData.append("category", selectCategory.value);
   console.log("test :", Image, inputTitle.value, selectCategory.value);
   const res = await fetch("http://localhost:5678/api/works", {
+    /* Objet de configuration */
     method: "POST",
     body: formData,
     headers: {
@@ -164,21 +161,44 @@ async function postnewWorks(e) {
       accept: "application/json",
     },
   });
-  if (res.ok == true) {
+  if (
+    res.ok == true &&
+    imgInput.value != "" &&
+    inputTitle.value != "" &&
+    selectCategory.value != null
+  ) {
     console.log("Le travail a bien été ajouté");
     workAdded.textContent = "Votre travail a bien été ajouté";
     workAdded.style.color = "green";
     workAdded.style.textDecoration = "underline";
 
-    inputTitle.style.borderStyle = "none";
-
     displayGallery();
     displayGalleryModal();
+    setTimeout(closeModal, 4000);
+    btnValider.disabled = false;
+
+    btnValider.classList.add("button-green");
   } else {
-    console.log(res);
-    checkedForm();
+    workAdded.textContent = "Veuillez compléter tous les champs";
+    workAdded.style.color = "red";
+    btnValider.disabled = true;
   }
 }
+
+// Vérification champs du formulaire : form fields
+
+btnValider.addEventListener("click", function checkedForm(e) {
+  if (
+    imgInput.value != "" &&
+    inputTitle.value != "" &&
+    selectCategory.value != null
+  ) {
+    btnValider.disabled = false;
+    btnValider.classList.add("button-green");
+  } else {
+    btnValider.disabled = false;
+  }
+});
 
 //
 // Affichage de la nouvelle photo dans le champs input-file
@@ -194,9 +214,14 @@ imgInput.addEventListener("change", function (e) {
 
 //
 // Ajout des catégories dans le champs catégorie
+
 addCategoryOptions();
+
 async function addCategoryOptions() {
   const categories = await getCategories();
+  let optionIndex = document.querySelector("option");
+  optionIndex.innerHTML = "Veuillez selectionner une catégorie";
+  optionIndex.value = null;
 
   for (const category of categories) {
     const option = document.createElement("option");
@@ -204,15 +229,9 @@ async function addCategoryOptions() {
     option.textContent = category.name;
     selectCategory.appendChild(option);
   }
+
   displayGalleryModal();
   displayGallery();
 }
-
 //
-// Vérification champs du formulaire : form fields
-function checkedForm() {
-  if (imgInput.value == "") {
-    workAdded.textContent = "Erreur :  il n'y a pas d'image ";
-    workAdded.style.color = "red";
-  }
-}
+//

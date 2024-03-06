@@ -1,12 +1,13 @@
-////////////////// VARIABLES GENERALES ///////////////
+//////// VARIABLES GENERALES ///////////
 
 let gallery = document.querySelector(".gallery");
 let filterContainer = document.getElementById("filters");
-//////
 
 //////
 
-//////////////*  FILTRER LES ELEMENTS PAR IMAGES (boutons-filtre) *//////////////
+//////
+
+//////*  FILTRER LES ELEMENTS PAR IMAGES (boutons-filtre) */////////
 
 //création des boutons de filtres avec leurs noms associés
 function makeFilter(category) {
@@ -15,6 +16,7 @@ function makeFilter(category) {
   filterButton.textContent = category.name;
   filterButton.addEventListener("click", showFilteredImg);
   filterContainer.append(filterButton);
+  filterButton.classList.add("button-green");
 }
 
 //affichage des boutons de filtre
@@ -26,6 +28,7 @@ async function displayCategories() {
     makeFilter(category);
   }
 }
+
 displayCategories();
 
 //Filtrer les images par catégorie
@@ -42,6 +45,14 @@ async function showFilteredImg(e) {
     }
   }
 }
+
+//let filterIndex = 1;
+/*function activeFilter(filterIndex) {
+  for (let i = 0; i < filterButton.length; i++) {
+    filterButton[i].classList.remove("button-green");
+  }
+  filterButton[filterIndex].classList.add("button-green");
+}*/
 
 ///////******************* AFFICHAGE DE LA GALLERIE D'IMAGE (homepage) ****************////////
 

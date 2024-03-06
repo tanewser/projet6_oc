@@ -126,10 +126,12 @@
         <form action="" method="post" class="direction-column form-new-work">
           <input type="file" id="input-file" class="input-file" />
           <label for="titre">Titre</label>
-          <input type="text" name="titre" id="titre" class="titre" required />
+          <input type="text" name="titre" id="titre" class="titre" />
 
           <label for="categorie">Categorie</label>
-          <select name="categorie" id="categorie" class="select-style"></select>
+          <select name="categorie" id="categorie" class="select-style">
+            <option id="0" class="option"></option>
+          </select>
           <div class="modal-border"></div>
           <input type="submit" class="btn-valider" value="Valider" />
         </form>
