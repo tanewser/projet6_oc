@@ -203,6 +203,9 @@ dialog {
 
   .btn-valider {
     background-color: rgba(167, 167, 167, 1);
+    &.button-green {
+      background-color: #1d6154;
+    }
     color: #ffffff;
     border: none;
     width: 237px;

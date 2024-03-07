@@ -138,7 +138,7 @@ btnValider.disabled = true;
 modale2.appendChild(workAdded);
 //
 
-formNewWork.addEventListener("change", postnewWorks);
+btnValider.addEventListener("click", postnewWorks);
 
 //
 
@@ -161,6 +161,7 @@ async function postnewWorks(e) {
       accept: "application/json",
     },
   });
+
   if (
     res.ok == true &&
     imgInput.value != "" &&
@@ -187,16 +188,18 @@ async function postnewWorks(e) {
 
 // Vérification champs du formulaire : form fields
 
-btnValider.addEventListener("click", function checkedForm(e) {
+formNewWork.addEventListener("change", (e) => {
+  console.log(imgInput.value);
   if (
     imgInput.value != "" &&
     inputTitle.value != "" &&
-    selectCategory.value != null
+    selectCategory.value != ""
   ) {
     btnValider.disabled = false;
     btnValider.classList.add("button-green");
   } else {
-    btnValider.disabled = false;
+    btnValider.disabled = true;
+    btnValider.classList.remove("button-green");
   }
 });
 
@@ -221,7 +224,7 @@ async function addCategoryOptions() {
   const categories = await getCategories();
   let optionIndex = document.querySelector("option");
   optionIndex.innerHTML = "Veuillez selectionner une catégorie";
-  optionIndex.value = null;
+  optionIndex.value = "";
 
   for (const category of categories) {
     const option = document.createElement("option");

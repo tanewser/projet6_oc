@@ -211,6 +211,9 @@ dialog .fa-trash-can {
   top: 10px;
   margin: 0;
 }
+.modale2 .btn-valider.button-green {
+  background-color: #1d6154;
+}
 
 .input-file {
   display: none;
