@@ -10,23 +10,23 @@ let filterContainer = document.getElementById("filters");
 //////*  FILTRER LES ELEMENTS PAR IMAGES (boutons-filtre) */////////
 
 //création des boutons de filtres avec leurs noms associés
-function makeFilter(category) {
+function makeFilter(category, index) {
   const filterButton = document.createElement("button");
   filterButton.dataset.categoryId = category.id;
+  filterButton.dataset.index = index;
   filterButton.textContent = category.name;
   filterButton.addEventListener("click", showFilteredImg);
   filterContainer.append(filterButton);
-  filterButton.classList.add("button-green");
 }
 
 //affichage des boutons de filtre
 async function displayCategories() {
   const categories = await getCategories();
-  makeFilter({ id: null, name: "Tous" });
-
-  for (const category of categories) {
-    makeFilter(category);
+  makeFilter({ id: null, name: "Tous" }, 0);
+  for (let i = 0; i < categories.length; i++) {
+    makeFilter(categories[i], i + 1);
   }
+  activeFilter(0);
 }
 
 displayCategories();
@@ -44,15 +44,17 @@ async function showFilteredImg(e) {
       displayWork(work);
     }
   }
+  activeFilter(e.target.dataset.index);
 }
 
-//let filterIndex = 1;
-/*function activeFilter(filterIndex) {
-  for (let i = 0; i < filterButton.length; i++) {
-    filterButton[i].classList.remove("button-green");
+function activeFilter(filterIndex) {
+  /*const filterButtons = document.querySelectorAll(fi)*/
+  const filterButtons = filterContainer.children;
+  for (let i = 0; i < filterButtons.length; i++) {
+    filterButtons[i].classList.remove("button-green");
   }
-  filterButton[filterIndex].classList.add("button-green");
-}*/
+  filterButtons[filterIndex].classList.add("button-green");
+}
 
 ///////******************* AFFICHAGE DE LA GALLERIE D'IMAGE (homepage) ****************////////
 
