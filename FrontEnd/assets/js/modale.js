@@ -86,6 +86,8 @@ function resetForm() {
   const imgInput = document.querySelector(".input-file");
   imgInput.value = "";
   workAdded.innerHTML = "";
+  btnValider.classList.remove("button-green");
+  btnValider.disabled = true;
 }
 
 //réafficher modale 1 apres avoir été sur la modale 2
